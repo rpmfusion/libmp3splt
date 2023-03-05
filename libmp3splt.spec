@@ -5,11 +5,13 @@
 Summary:       Libraries for the mp3Splt project
 Name:          libmp3splt
 Version:       0.9.2
-Release:       14%{?dist}
+Release:       15%{?dist}
 License:       GPLv2
 Group:         Development/Libraries
 Source:        http://downloads.sourceforge.net/mp3splt/%{name}-%{version}.tar.gz
 URL:           http://mp3splt.sourceforge.net/
+Patch0:        v0.9.2..385d2001_2020-11-10.patch
+
 BuildRequires: gettext
 BuildRequires: libid3tag-devel
 BuildRequires: libmad-devel
@@ -47,21 +49,22 @@ This package contains development files for the mp3splt project.
 
 %prep
 %setup -q
+%patch0 -p2
+
+%build
 autoreconf -fiv
 # Avoid standard rpaths on lib64 archs:
 sed -i -e 's|"/lib /usr/lib\b|"/%{_lib} %{_libdir}|' configure
-
-%build
 %configure --disable-static \
 %if %{with ltdl}
            --with-ltdl-lib=%{_libdir} \
            --with-ltdl-include=%{_includedir}
 %endif
 
-%__make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 # Remove libtool la files:
 find %{buildroot}%{_libdir} -name '*.la' -exec rm -f {} ';'
@@ -91,6 +94,9 @@ find %{buildroot}%{_libdir} -name '*.la' -exec rm -f {} ';'
 %{_docdir}/%{name}/doxygen
 
 %changelog
+* Sun Mar 05 2023 Sérgio Basto <sergio@serjux.com> - 0.9.2-15
+- Update to last git snapshot from https://github.com/mp3splt/mp3splt
+
 * Wed Feb 08 2023 Leigh Scott <leigh123linux@gmail.com> - 0.9.2-14
 - Rebuild for new flac
 
