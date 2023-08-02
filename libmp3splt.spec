@@ -11,6 +11,7 @@ Group:         Development/Libraries
 Source:        http://downloads.sourceforge.net/mp3splt/%{name}-%{version}.tar.gz
 URL:           http://mp3splt.sourceforge.net/
 Patch0:        v0.9.2..385d2001_2020-11-10.patch
+Patch1:        fix_snprintf-overflow.patch
 
 BuildRequires: gettext
 BuildRequires: libid3tag-devel
@@ -49,7 +50,8 @@ This package contains development files for the mp3splt project.
 
 %prep
 %setup -q
-%patch0 -p2
+%patch -P0 -p2
+%patch -P1 -p1
 
 %build
 autoreconf -fiv
