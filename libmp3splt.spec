@@ -5,7 +5,7 @@
 Summary:       Libraries for the mp3Splt project
 Name:          libmp3splt
 Version:       0.9.2
-Release:       18%{?dist}
+Release:       19%{?dist}
 License:       GPLv2
 Group:         Development/Libraries
 Source:        http://downloads.sourceforge.net/mp3splt/%{name}-%{version}.tar.gz
@@ -96,6 +96,9 @@ find %{buildroot}%{_libdir} -name '*.la' -exec rm -f {} ';'
 %{_docdir}/%{name}/doxygen
 
 %changelog
+* Tue Jan 28 2025 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.9.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+
 * Fri Aug 02 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.9.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
